@@ -1,0 +1,1020 @@
+import { Doctor } from './types';
+const allDoctors: Doctor[] = [
+  {
+    id: "1",
+    name: "Dr. Sarah Johnson",
+    specialty: "Cardiology",
+    experience: 15,
+    rating: 4.9,
+    reviews: 234,
+    location: "New York, NY",
+    available: true,
+    price: "150",
+    education: [
+      "MD, Harvard Medical School",
+      "Fellowship in Cardiology, Johns Hopkins",
+    ],
+    languages: ["English", "Spanish"],
+    bio: "Dr. Sarah Johnson is a board-certified cardiologist with over 15 years of experience in treating cardiovascular diseases. She specializes in preventive cardiology and has helped thousands of patients maintain heart health.",
+    workingHours: [
+      {
+        day: "Monday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Tuesday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Wednesday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Thursday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Friday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+    ],
+    image:
+      "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop",
+    workHistory: [
+      {
+        position: "Senior Cardiologist",
+        hospital: "New York Presbyterian Hospital",
+        location: "New York, NY",
+        startDate: "2018",
+        endDate: "Present",
+        description:
+          "Leading cardiology department, specializing in preventive cardiology and heart disease management.",
+      },
+      {
+        position: "Cardiologist",
+        hospital: "Mount Sinai Hospital",
+        location: "New York, NY",
+        startDate: "2010",
+        endDate: "2018",
+        description:
+          "Provided comprehensive cardiac care and performed diagnostic procedures.",
+      },
+      {
+        position: "Resident Physician",
+        hospital: "Johns Hopkins Hospital",
+        location: "Baltimore, MD",
+        startDate: "2008",
+        endDate: "2010",
+        description:
+          "Completed residency in internal medicine with focus on cardiology.",
+      },
+    ],
+    specialties: [
+      {
+        name: "Preventive Cardiology",
+        description:
+          "Focus on preventing heart disease through lifestyle modifications and early detection.",
+        certifications: [
+          "Board Certified in Cardiology",
+          "FACC (Fellow of American College of Cardiology)",
+        ],
+        procedures: [
+          "Echocardiography",
+          "Stress Testing",
+          "Cardiac Catheterization",
+          "Holter Monitoring",
+        ],
+      },
+      {
+        name: "Heart Disease Management",
+        description:
+          "Comprehensive management of coronary artery disease, heart failure, and arrhythmias.",
+        certifications: ["Advanced Cardiac Life Support (ACLS)"],
+        procedures: [
+          "Angioplasty",
+          "Stent Placement",
+          "Pacemaker Implantation",
+        ],
+      },
+    ],
+  },
+  {
+    id: "2",
+    name: "Dr. Michael Chen",
+    specialty: "Dermatology",
+    experience: 12,
+    rating: 4.8,
+    reviews: 189,
+    location: "Los Angeles, CA",
+    available: true,
+    price: "120",
+    education: ["MD, Stanford University", "Residency in Dermatology, UCLA"],
+    languages: ["English", "Mandarin"],
+    bio: "Dr. Michael Chen is a renowned dermatologist specializing in cosmetic and medical dermatology. With 12 years of experience, he provides comprehensive skin care solutions.",
+    workingHours: [
+      {
+        day: "Monday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "18:00" },
+        ],
+      },
+      {
+        day: "Tuesday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "18:00" },
+        ],
+      },
+      {
+        day: "Wednesday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "18:00" },
+        ],
+      },
+      {
+        day: "Thursday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "18:00" },
+        ],
+      },
+      {
+        day: "Friday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "18:00" },
+        ],
+      },
+      {
+        day: "Saturday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "18:00" },
+        ],
+      },
+    ],
+    image:
+      "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop",
+    workHistory: [
+      {
+        position: "Senior Dermatologist",
+        hospital: "UCLA Medical Center",
+        location: "Los Angeles, CA",
+        startDate: "2015",
+        endDate: "Present",
+        description:
+          "Leading dermatology practice specializing in cosmetic and medical dermatology treatments.",
+      },
+      {
+        position: "Dermatologist",
+        hospital: "Cedars-Sinai Medical Center",
+        location: "Los Angeles, CA",
+        startDate: "2012",
+        endDate: "2015",
+        description:
+          "Provided comprehensive dermatological care including skin cancer screening and treatment.",
+      },
+    ],
+    specialties: [
+      {
+        name: "Cosmetic Dermatology",
+        description:
+          "Advanced cosmetic procedures including Botox, fillers, laser treatments, and skin rejuvenation.",
+        certifications: [
+          "Board Certified in Dermatology",
+          "Cosmetic Dermatology Fellowship",
+        ],
+        procedures: [
+          "Botox Injections",
+          "Dermal Fillers",
+          "Laser Resurfacing",
+          "Chemical Peels",
+          "Microneedling",
+        ],
+      },
+      {
+        name: "Medical Dermatology",
+        description:
+          "Treatment of skin conditions including acne, eczema, psoriasis, and skin cancer.",
+        certifications: ["Mohs Surgery Certification"],
+        procedures: [
+          "Skin Cancer Screening",
+          "Mohs Surgery",
+          "Acne Treatment",
+          "Eczema Management",
+        ],
+      },
+    ],
+  },
+  {
+    id: "3",
+    name: "Dr. Emily Rodriguez",
+    specialty: "Neurology",
+    experience: 18,
+    rating: 4.9,
+    reviews: 312,
+    location: "Chicago, IL",
+    available: true,
+    price: "180",
+    education: [
+      "MD, Northwestern University",
+      "Fellowship in Neurology, Mayo Clinic",
+    ],
+    languages: ["English", "Spanish"],
+    bio: "Dr. Emily Rodriguez is an expert neurologist with extensive experience in treating neurological disorders. She is known for her compassionate care and innovative treatment approaches.",
+    workingHours: [
+      {
+        day: "Monday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+      {
+        day: "Tuesday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+      {
+        day: "Wednesday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+      {
+        day: "Thursday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+      {
+        day: "Friday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+    ],
+    image:
+      "https://images.unsplash.com/photo-1594824476968-48fd8c0e8e3a?w=400&h=400&fit=crop",
+  },
+  {
+    id: "4",
+    name: "Dr. James Wilson",
+    specialty: "Pediatrics",
+    experience: 10,
+    rating: 4.7,
+    reviews: 156,
+    location: "Houston, TX",
+    available: false,
+    price: "100",
+    education: [
+      "MD, Baylor College of Medicine",
+      "Residency in Pediatrics, Texas Children's Hospital",
+    ],
+    languages: ["English"],
+    bio: "Dr. James Wilson is a dedicated pediatrician committed to providing the best care for children. He has a gentle approach and makes children feel comfortable during visits.",
+    workingHours: [
+      {
+        day: "Monday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Tuesday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Wednesday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Thursday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Friday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+    ],
+    image:
+      "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=400&fit=crop",
+  },
+  {
+    id: "5",
+    name: "Dr. Lisa Anderson",
+    specialty: "Orthopedics",
+    experience: 14,
+    rating: 4.8,
+    reviews: 278,
+    location: "Phoenix, AZ",
+    available: true,
+    price: "160",
+    education: [
+      "MD, University of Arizona",
+      "Fellowship in Orthopedic Surgery, Cleveland Clinic",
+    ],
+    languages: ["English"],
+    bio: "Dr. Lisa Anderson specializes in orthopedic surgery and sports medicine. She helps patients recover from injuries and return to their active lifestyles.",
+    workingHours: [
+      {
+        day: "Monday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Tuesday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Wednesday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Thursday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Friday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+    ],
+    image:
+      "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=400&h=400&fit=crop",
+  },
+  {
+    id: "6",
+    name: "Dr. Robert Taylor",
+    specialty: "Ophthalmology",
+    experience: 20,
+    rating: 5.0,
+    reviews: 445,
+    location: "Philadelphia, PA",
+    available: true,
+    price: "200",
+    education: [
+      "MD, University of Pennsylvania",
+      "Fellowship in Ophthalmology, Wills Eye Hospital",
+    ],
+    languages: ["English", "French"],
+    bio: "Dr. Robert Taylor is a leading ophthalmologist with 20 years of experience. He specializes in cataract surgery and retinal diseases.",
+    workingHours: [
+      {
+        day: "Monday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "18:00" },
+        ],
+      },
+      {
+        day: "Tuesday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "18:00" },
+        ],
+      },
+      {
+        day: "Wednesday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "18:00" },
+        ],
+      },
+      {
+        day: "Thursday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "18:00" },
+        ],
+      },
+      {
+        day: "Friday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "18:00" },
+        ],
+      },
+      {
+        day: "Saturday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "18:00" },
+        ],
+      },
+    ],
+    image:
+      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop",
+  },
+  {
+    id: "7",
+    name: "Dr. Maria Garcia",
+    specialty: "Gynecology",
+    experience: 13,
+    rating: 4.9,
+    reviews: 267,
+    location: "San Antonio, TX",
+    available: true,
+    price: "140",
+    education: [
+      "MD, University of Texas",
+      "Residency in Obstetrics and Gynecology, UT Health",
+    ],
+    languages: ["English", "Spanish"],
+    bio: "Dr. Maria Garcia is a compassionate gynecologist providing comprehensive women's health care. She is known for her expertise in preventive care and patient education.",
+    workingHours: [
+      {
+        day: "Monday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Tuesday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Wednesday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Thursday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Friday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+    ],
+    image:
+      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&h=400&fit=crop",
+  },
+  {
+    id: "8",
+    name: "Dr. David Brown",
+    specialty: "Psychiatry",
+    experience: 16,
+    rating: 4.7,
+    reviews: 198,
+    location: "San Diego, CA",
+    available: true,
+    price: "170",
+    education: [
+      "MD, UC San Diego",
+      "Residency in Psychiatry, UCSD Medical Center",
+    ],
+    languages: ["English"],
+    bio: "Dr. David Brown is a board-certified psychiatrist specializing in mood disorders and anxiety. He provides both medication management and therapy.",
+    workingHours: [
+      {
+        day: "Monday",
+        slots: [
+          { startTime: "10:00", endTime: "13:00" },
+          { startTime: "15:00", endTime: "18:00" },
+        ],
+      },
+      {
+        day: "Tuesday",
+        slots: [
+          { startTime: "10:00", endTime: "13:00" },
+          { startTime: "15:00", endTime: "18:00" },
+        ],
+      },
+      {
+        day: "Wednesday",
+        slots: [
+          { startTime: "10:00", endTime: "13:00" },
+          { startTime: "15:00", endTime: "18:00" },
+        ],
+      },
+      {
+        day: "Thursday",
+        slots: [
+          { startTime: "10:00", endTime: "13:00" },
+          { startTime: "15:00", endTime: "18:00" },
+        ],
+      },
+      {
+        day: "Friday",
+        slots: [
+          { startTime: "10:00", endTime: "13:00" },
+          { startTime: "15:00", endTime: "18:00" },
+        ],
+      },
+    ],
+    image:
+      "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=400&fit=crop",
+  },
+  {
+    id: "9",
+    name: "Dr. Jennifer Lee",
+    specialty: "Gastroenterology",
+    experience: 11,
+    rating: 4.8,
+    reviews: 223,
+    location: "Dallas, TX",
+    available: false,
+    price: "130",
+    education: [
+      "MD, UT Southwestern",
+      "Fellowship in Gastroenterology, Baylor University",
+    ],
+    languages: ["English", "Korean"],
+    bio: "Dr. Jennifer Lee specializes in digestive health and gastrointestinal disorders. She is committed to helping patients achieve optimal digestive wellness.",
+    workingHours: [
+      {
+        day: "Monday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+      {
+        day: "Tuesday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+      {
+        day: "Wednesday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+      {
+        day: "Thursday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+      {
+        day: "Friday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+    ],
+    image:
+      "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop",
+  },
+  {
+    id: "10",
+    name: "Dr. Christopher Martinez",
+    specialty: "Urology",
+    experience: 17,
+    rating: 4.9,
+    reviews: 301,
+    location: "San Jose, CA",
+    available: true,
+    price: "175",
+    education: [
+      "MD, Stanford University",
+      "Fellowship in Urology, Stanford Medical Center",
+    ],
+    languages: ["English", "Spanish"],
+    bio: "Dr. Christopher Martinez is a skilled urologist with expertise in both medical and surgical urological conditions. He provides comprehensive urological care.",
+    workingHours: [
+      {
+        day: "Monday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Tuesday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Wednesday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Thursday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Friday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+    ],
+    image:
+      "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=400&fit=crop",
+  },
+  {
+    id: "11",
+    name: "Dr. Amanda White",
+    specialty: "Endocrinology",
+    experience: 12,
+    rating: 4.6,
+    reviews: 167,
+    location: "Austin, TX",
+    available: true,
+    price: "145",
+    education: ["MD, UT Austin", "Fellowship in Endocrinology, MD Anderson"],
+    languages: ["English"],
+    bio: "Dr. Amanda White specializes in endocrinology and metabolic disorders. She helps patients manage diabetes, thyroid conditions, and hormonal imbalances.",
+    workingHours: [
+      {
+        day: "Monday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+      {
+        day: "Tuesday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+      {
+        day: "Wednesday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+      {
+        day: "Thursday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+      {
+        day: "Friday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+    ],
+    image:
+      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&h=400&fit=crop",
+  },
+  {
+    id: "12",
+    name: "Dr. Daniel Thompson",
+    specialty: "Oncology",
+    experience: 22,
+    rating: 5.0,
+    reviews: 389,
+    location: "Jacksonville, FL",
+    available: true,
+    price: "220",
+    education: [
+      "MD, Johns Hopkins",
+      "Fellowship in Oncology, Memorial Sloan Kettering",
+    ],
+    languages: ["English"],
+    bio: "Dr. Daniel Thompson is a leading oncologist with over 22 years of experience in cancer treatment. He is known for his compassionate care and innovative treatment approaches.",
+    workingHours: [
+      {
+        day: "Monday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Tuesday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Wednesday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Thursday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Friday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+    ],
+    image:
+      "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop",
+  },
+  {
+    id: "13",
+    name: "Dr. Jessica Davis",
+    specialty: "Cardiology",
+    experience: 9,
+    rating: 4.7,
+    reviews: 134,
+    location: "San Francisco, CA",
+    available: true,
+    price: "155",
+    education: ["MD, UCSF", "Fellowship in Cardiology, UCSF Medical Center"],
+    languages: ["English"],
+    bio: "Dr. Jessica Davis is a cardiologist specializing in preventive cardiology and heart disease management. She is committed to helping patients maintain cardiovascular health.",
+    workingHours: [
+      {
+        day: "Monday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Tuesday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Wednesday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Thursday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Friday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+    ],
+    image:
+      "https://images.unsplash.com/photo-1594824476968-48fd8c0e8e3a?w=400&h=400&fit=crop",
+  },
+  {
+    id: "14",
+    name: "Dr. Matthew Harris",
+    specialty: "Dermatology",
+    experience: 11,
+    rating: 4.8,
+    reviews: 201,
+    location: "Columbus, OH",
+    available: true,
+    price: "125",
+    education: [
+      "MD, Ohio State University",
+      "Residency in Dermatology, OSU Medical Center",
+    ],
+    languages: ["English"],
+    bio: "Dr. Matthew Harris is a dermatologist specializing in medical and cosmetic dermatology. He provides comprehensive skin care solutions for all ages.",
+    workingHours: [
+      {
+        day: "Monday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "18:00" },
+        ],
+      },
+      {
+        day: "Tuesday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "18:00" },
+        ],
+      },
+      {
+        day: "Wednesday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "18:00" },
+        ],
+      },
+      {
+        day: "Thursday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "18:00" },
+        ],
+      },
+      {
+        day: "Friday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "18:00" },
+        ],
+      },
+      {
+        day: "Saturday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "18:00" },
+        ],
+      },
+    ],
+    image:
+      "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=400&h=400&fit=crop",
+  },
+  {
+    id: "15",
+    name: "Dr. Olivia Clark",
+    specialty: "Neurology",
+    experience: 15,
+    rating: 4.9,
+    reviews: 289,
+    location: "Fort Worth, TX",
+    available: false,
+    price: "185",
+    education: [
+      "MD, UT Southwestern",
+      "Fellowship in Neurology, UT Southwestern Medical Center",
+    ],
+    languages: ["English"],
+    bio: "Dr. Olivia Clark is a neurologist specializing in movement disorders and epilepsy. She provides comprehensive neurological care with a focus on patient-centered treatment.",
+    workingHours: [
+      {
+        day: "Monday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+      {
+        day: "Tuesday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+      {
+        day: "Wednesday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+      {
+        day: "Thursday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+      {
+        day: "Friday",
+        slots: [
+          { startTime: "08:00", endTime: "12:00" },
+          { startTime: "13:00", endTime: "16:00" },
+        ],
+      },
+    ],
+    image:
+      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&h=400&fit=crop",
+  },
+  {
+    id: "16",
+    name: "Dr. William Lewis",
+    specialty: "Pediatrics",
+    experience: 8,
+    rating: 4.6,
+    reviews: 112,
+    location: "Charlotte, NC",
+    available: true,
+    price: "95",
+    education: [
+      "MD, UNC Chapel Hill",
+      "Residency in Pediatrics, UNC Children's Hospital",
+    ],
+    languages: ["English"],
+    bio: "Dr. William Lewis is a pediatrician dedicated to providing excellent care for children from infancy through adolescence. He has a warm and friendly approach.",
+    workingHours: [
+      {
+        day: "Monday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Tuesday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Wednesday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Thursday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+      {
+        day: "Friday",
+        slots: [
+          { startTime: "09:00", endTime: "12:00" },
+          { startTime: "14:00", endTime: "17:00" },
+        ],
+      },
+    ],
+    image:
+      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop",
+  },
+];
+
+export default allDoctors;
