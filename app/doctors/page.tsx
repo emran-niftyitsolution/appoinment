@@ -87,7 +87,7 @@ function DoctorsPageContent() {
       <Header />
 
       {/* Modern Page Header */}
-      <section className="relative pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-8 sm:pb-12 md:pb-16 overflow-hidden">
+      <section className="relative mb-5 pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-8 sm:pb-12 md:pb-16 overflow-hidden">
         {/* Animated Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-cyan-500/5 to-purple-500/5">
           <div className="absolute top-10 sm:top-20 left-4 sm:left-10 w-48 h-48 sm:w-72 sm:h-72 md:w-96 md:h-96 bg-blue-200/20 rounded-full mix-blend-multiply filter blur-2xl sm:blur-3xl animate-blob"></div>
