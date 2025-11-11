@@ -188,7 +188,7 @@ export default function AppointmentModal({
             </Form.Item>
 
             {/* Patient Information - Compact Grid */}
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2 mb-1">
               <Form.Item
                 label={<span className="text-xs font-semibold">Full Name</span>}
                 name="name"
@@ -202,6 +202,26 @@ export default function AppointmentModal({
                 />
               </Form.Item>
 
+              <Form.Item
+                label={<span className="text-xs font-semibold">Gender</span>}
+                name="gender"
+                rules={[{ required: true, message: "Required" }]}
+                className="mb-1"
+              >
+                <Select
+                  size="large"
+                  placeholder="Select gender"
+                  options={[
+                    { label: "Male", value: "male" },
+                    { label: "Female", value: "female" },
+                    { label: "Other", value: "other" },
+                  ]}
+                  className="rounded-lg"
+                />
+              </Form.Item>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 mb-1">
               <Form.Item
                 label={<span className="text-xs font-semibold">Email</span>}
                 name="email"
@@ -218,23 +238,23 @@ export default function AppointmentModal({
                   className="rounded-lg"
                 />
               </Form.Item>
-            </div>
 
-            <Form.Item
-              label={
-                <span className="text-xs font-semibold">Phone Number</span>
-              }
-              name="phone"
-              rules={[{ required: true, message: "Required" }]}
-              className="mb-1"
-            >
-              <Input
-                type="tel"
-                size="large"
-                placeholder="+1 (555) 123-4567"
-                className="rounded-lg"
-              />
-            </Form.Item>
+              <Form.Item
+                label={
+                  <span className="text-xs font-semibold">Phone Number</span>
+                }
+                name="phone"
+                rules={[{ required: true, message: "Required" }]}
+                className="mb-1"
+              >
+                <Input
+                  type="tel"
+                  size="large"
+                  placeholder="+1 (555) 123-4567"
+                  className="rounded-lg"
+                />
+              </Form.Item>
+            </div>
 
             {/* Additional Notes - Compact */}
             <Form.Item
