@@ -84,6 +84,26 @@ body {
   line-height: 3.5rem !important;
 }
 
+/* Ensure Select components match input height */
+.ant-select-lg .ant-select-selector,
+.ant-select.ant-select-lg .ant-select-selector {
+  height: 3.5rem !important;
+  min-height: 3.5rem !important;
+}
+
+.ant-select-lg .ant-select-selection-item,
+.ant-select-lg .ant-select-selection-placeholder,
+.ant-select.ant-select-lg .ant-select-selection-item,
+.ant-select.ant-select-lg .ant-select-selection-placeholder {
+  line-height: 3.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.ant-select-lg .ant-select-selection-search {
+  line-height: 3.5rem !important;
+}
+
 .ant-modal-content {
   border-radius: 1rem !important;
 }

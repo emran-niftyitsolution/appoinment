@@ -1,5 +1,8 @@
 import clientPromise from '../mongodb';
 import bcrypt from 'bcryptjs';
+import { ObjectId } from 'mongodb';
+
+import { WorkHistory, Specialty } from '../../app/data/types';
 
 export interface User {
   _id?: string;
@@ -9,6 +12,38 @@ export interface User {
   phone: string;
   password: string;
   userType: 'patient' | 'doctor';
+  // Doctor-specific fields
+  bio?: string;
+  specialty?: string;
+  experience?: number;
+  licenseNumber?: string;
+  image?: string;
+  location?: string;
+  price?: string;
+  rating?: number;
+  reviews?: number;
+  available?: boolean;
+  education?: Array<{
+    institute: string;
+    degree: string;
+    passingYear: number;
+    location: string;
+    additionalInfo?: string;
+  }>;
+  workHistory?: WorkHistory[];
+  specialties?: Specialty[];
+  languages?: string[];
+  workingHours?: {
+    day: string;
+    slots: { startTime: string; endTime: string }[];
+  }[];
+  // Practice information
+  clinicName?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  consultationFee?: number;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -74,5 +109,41 @@ export async function updateUserPassword(
     { email },
     { $set: { password: hashedPassword, updatedAt: new Date() } }
   );
+}
+
+export async function updateUserProfile(
+  userId: string,
+  profileData: Partial<Omit<User, '_id' | 'password' | 'email' | 'createdAt' | 'updatedAt'>>
+): Promise<User | null> {
+  const client = await clientPromise;
+  const db = client.db();
+  const users = db.collection<User>('users');
+  
+  const updateData = {
+    ...profileData,
+    updatedAt: new Date(),
+  };
+  
+  const result = await users.findOneAndUpdate(
+    { _id: new ObjectId(userId) },
+    { $set: updateData },
+    { returnDocument: 'after' }
+  );
+  
+  if (!result) {
+    return null;
+  }
+  
+  const { password, ...userWithoutPassword } = result;
+  return userWithoutPassword as User;
+}
+
+export async function findUserById(userId: string): Promise<User | null> {
+  const client = await clientPromise;
+  const db = client.db();
+  const users = db.collection<User>('users');
+  
+  const user = await users.findOne({ _id: new ObjectId(userId) });
+  return user;
 }
 
