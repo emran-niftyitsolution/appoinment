@@ -54,7 +54,8 @@ body {
 }
 
 @keyframes gradient {
-  0%, 100% {
+  0%,
+  100% {
     background-position: 0% 50%;
   }
   50% {
@@ -78,6 +79,11 @@ body {
   border-radius: 0.75rem !important;
 }
 
+.ant-btn-lg {
+  height: 3.5rem !important;
+  line-height: 3.5rem !important;
+}
+
 .ant-modal-content {
   border-radius: 1rem !important;
 }
@@ -94,4 +100,38 @@ body {
 
 .ant-form-item-label {
   padding-bottom: 4px !important;
+}
+
+/* Custom Toggle Switch Styles */
+.ant-radio-button-wrapper {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transition: all 0.3s ease-in-out !important;
+  padding-left: 4rem !important;
+  padding-right: 4rem !important;
+}
+
+.ant-radio-button-wrapper:first-child {
+  border-radius: 9999px !important;
+}
+
+.ant-radio-button-wrapper:last-child {
+  border-radius: 9999px !important;
+}
+
+.ant-radio-button-wrapper-checked {
+  background: linear-gradient(to right, #2563eb, #06b6d4) !important;
+  color: white !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+.ant-radio-button-wrapper:not(.ant-radio-button-wrapper-checked) {
+  color: #6b7280 !important;
+}
+
+.ant-radio-button-wrapper:hover:not(.ant-radio-button-wrapper-checked) {
+  color: #374151 !important;
+  background: rgba(0, 0, 0, 0.05) !important;
 }

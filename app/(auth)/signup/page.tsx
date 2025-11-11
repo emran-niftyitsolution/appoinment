@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Checkbox, Form, Input, message } from "antd";
+import { Button, Checkbox, Form, Input, message, Radio } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -138,7 +138,7 @@ export default function SignupPage() {
 
       {/* Right Side - Signup Form */}
       <div className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-12 bg-gray-50">
-        <div className="w-full max-w-md mx-auto">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
           {/* Mobile Logo */}
           <div className="lg:hidden mb-8 text-center">
             <Link href="/" className="inline-flex items-center space-x-2">
@@ -179,7 +179,37 @@ export default function SignupPage() {
               onFinish={handleSubmit}
               size="large"
               className="space-y-4"
+              initialValues={{ userType: "patient" }}
             >
+              <Form.Item
+                label={<span className="text-sm font-semibold">I am a</span>}
+                name="userType"
+                rules={[{ required: true, message: "Please select your role" }]}
+              >
+                <div className="w-auto mx-auto bg-gray-100 rounded-full p-1.5 inline-flex">
+                  <Radio.Group
+                    className="flex"
+                    size="large"
+                    optionType="button"
+                    buttonStyle="solid"
+                    defaultValue="patient"
+                  >
+                    <Radio.Button
+                      value="patient"
+                      className="flex-1 text-center h-16 flex items-center justify-center text-lg font-semibold rounded-full transition-all duration-300 ease-in-out px-16 cursor-pointer "
+                    >
+                      Patient
+                    </Radio.Button>
+                    <Radio.Button
+                      value="doctor"
+                      className="flex-1 text-center h-16 flex items-center justify-center text-lg font-semibold rounded-full transition-all duration-300 ease-in-out px-16 cursor-pointer"
+                    >
+                      Doctor
+                    </Radio.Button>
+                  </Radio.Group>
+                </div>
+              </Form.Item>
+
               <div className="grid grid-cols-2 gap-4">
                 <Form.Item
                   label={
@@ -211,34 +241,39 @@ export default function SignupPage() {
                 </Form.Item>
               </div>
 
-              <Form.Item
-                label={<span className="text-sm font-semibold">Email</span>}
-                name="email"
-                rules={[
-                  { required: true, message: "Please enter your email" },
-                  { type: "email", message: "Please enter a valid email" },
-                ]}
-              >
-                <Input
-                  type="email"
-                  placeholder="john@example.com"
-                  className="rounded-xl h-14 text-base"
-                />
-              </Form.Item>
+              <div className="grid grid-cols-2 gap-4">
+                <Form.Item
+                  label={<span className="text-sm font-semibold">Email</span>}
+                  name="email"
+                  rules={[
+                    { required: true, message: "Please enter your email" },
+                    { type: "email", message: "Please enter a valid email" },
+                  ]}
+                >
+                  <Input
+                    type="email"
+                    placeholder="john@example.com"
+                    className="rounded-xl h-14 text-base"
+                  />
+                </Form.Item>
 
-              <Form.Item
-                label={<span className="text-sm font-semibold">Phone</span>}
-                name="phone"
-                rules={[
-                  { required: true, message: "Please enter your phone number" },
-                ]}
-              >
-                <Input
-                  type="tel"
-                  placeholder="+1 (555) 123-4567"
-                  className="rounded-xl h-14 text-base"
-                />
-              </Form.Item>
+                <Form.Item
+                  label={<span className="text-sm font-semibold">Phone</span>}
+                  name="phone"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter your phone number",
+                    },
+                  ]}
+                >
+                  <Input
+                    type="tel"
+                    placeholder="+1 (555) 123-4567"
+                    className="rounded-xl h-14 text-base"
+                  />
+                </Form.Item>
+              </div>
 
               <Form.Item
                 label={<span className="text-sm font-semibold">Password</span>}
