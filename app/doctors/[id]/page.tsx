@@ -484,7 +484,7 @@ export default function DoctorProfilePage() {
                 <button
                   onClick={handleBookAppointment}
                   disabled={!doctor.available || !selectedDate || !selectedTime}
-                  className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-sm sm:text-base font-semibold rounded-lg sm:rounded-xl hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mb-3 sm:mb-4"
+                  className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-sm sm:text-base font-semibold rounded-lg sm:rounded-xl hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer mb-3 sm:mb-4"
                 >
                   {!selectedDate || !selectedTime
                     ? "Select Date & Time"

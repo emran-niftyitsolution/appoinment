@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Form, Input, message } from "antd";
+import { Button, Checkbox, Form, Input, message } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -190,7 +190,10 @@ export default function SignupPage() {
                     { required: true, message: "Please enter your first name" },
                   ]}
                 >
-                  <Input placeholder="John" className="rounded-xl" />
+                  <Input
+                    placeholder="John"
+                    className="rounded-xl h-14 text-base"
+                  />
                 </Form.Item>
                 <Form.Item
                   label={
@@ -201,7 +204,10 @@ export default function SignupPage() {
                     { required: true, message: "Please enter your last name" },
                   ]}
                 >
-                  <Input placeholder="Doe" className="rounded-xl" />
+                  <Input
+                    placeholder="Doe"
+                    className="rounded-xl h-14 text-base"
+                  />
                 </Form.Item>
               </div>
 
@@ -216,7 +222,7 @@ export default function SignupPage() {
                 <Input
                   type="email"
                   placeholder="john@example.com"
-                  className="rounded-xl"
+                  className="rounded-xl h-14 text-base"
                 />
               </Form.Item>
 
@@ -230,7 +236,7 @@ export default function SignupPage() {
                 <Input
                   type="tel"
                   placeholder="+1 (555) 123-4567"
-                  className="rounded-xl"
+                  className="rounded-xl h-14 text-base"
                 />
               </Form.Item>
 
@@ -247,7 +253,7 @@ export default function SignupPage() {
               >
                 <Input.Password
                   placeholder="Create a password"
-                  className="rounded-xl"
+                  className="rounded-xl h-14 text-base"
                 />
               </Form.Item>
 
@@ -275,7 +281,7 @@ export default function SignupPage() {
               >
                 <Input.Password
                   placeholder="Confirm your password"
-                  className="rounded-xl"
+                  className="rounded-xl h-14 text-base"
                 />
               </Form.Item>
 
@@ -293,28 +299,22 @@ export default function SignupPage() {
                   },
                 ]}
               >
-                <label className="flex items-start cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-0.5"
-                  />
-                  <span className="ml-2 text-sm text-gray-600">
-                    I agree to the{" "}
-                    <Link
-                      href="/terms"
-                      className="text-blue-600 hover:text-blue-700 font-medium"
-                    >
-                      Terms of Service
-                    </Link>{" "}
-                    and{" "}
-                    <Link
-                      href="/privacy"
-                      className="text-blue-600 hover:text-blue-700 font-medium"
-                    >
-                      Privacy Policy
-                    </Link>
-                  </span>
-                </label>
+                <Checkbox className="text-sm text-gray-600">
+                  I agree to the{" "}
+                  <Link
+                    href="/terms"
+                    className="text-blue-600 hover:text-blue-700 font-medium"
+                  >
+                    Terms of Service
+                  </Link>{" "}
+                  and{" "}
+                  <Link
+                    href="/privacy"
+                    className="text-blue-600 hover:text-blue-700 font-medium"
+                  >
+                    Privacy Policy
+                  </Link>
+                </Checkbox>
               </Form.Item>
 
               <Form.Item>
@@ -323,7 +323,7 @@ export default function SignupPage() {
                   htmlType="submit"
                   size="large"
                   loading={isSubmitting}
-                  className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 border-none hover:opacity-90 text-base font-semibold h-12"
+                  className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 border-none hover:opacity-90 text-base font-semibold h-14 cursor-pointer"
                 >
                   {isSubmitting ? "Creating Account..." : "Create Account"}
                 </Button>
@@ -346,7 +346,7 @@ export default function SignupPage() {
             <div className="grid grid-cols-2 gap-3 mb-6">
               <button
                 type="button"
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path
@@ -372,7 +372,7 @@ export default function SignupPage() {
               </button>
               <button
                 type="button"
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
                 <svg
                   className="w-5 h-5"

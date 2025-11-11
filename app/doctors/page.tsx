@@ -131,7 +131,7 @@ function DoctorsPageContent() {
             {/* Mobile Filter Toggle */}
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="lg:hidden px-4 sm:px-5 py-2.5 sm:py-3 bg-white/80 backdrop-blur-md border border-gray-200 rounded-xl sm:rounded-2xl flex items-center gap-2 hover:bg-white hover:shadow-lg transition-all duration-200 shadow-sm text-sm sm:text-base"
+              className="lg:hidden px-4 sm:px-5 py-2.5 sm:py-3 bg-white/80 backdrop-blur-md border border-gray-200 rounded-xl sm:rounded-2xl flex items-center gap-2 hover:bg-white hover:shadow-lg transition-all duration-200 shadow-sm text-sm sm:text-base cursor-pointer"
             >
               <svg
                 className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700"
@@ -178,7 +178,7 @@ function DoctorsPageContent() {
                 </div>
                 <button
                   onClick={() => setSidebarOpen(false)}
-                  className="lg:hidden p-2 hover:bg-gray-100 rounded-xl transition-colors"
+                  className="lg:hidden p-2 hover:bg-gray-100 rounded-xl transition-colors cursor-pointer"
                 >
                   <svg
                     className="w-5 h-5 text-gray-600"
@@ -366,7 +366,7 @@ function DoctorsPageContent() {
                         setSearchQuery("");
                         router.push("/doctors");
                       }}
-                      className="text-sm text-blue-600 hover:text-blue-700 font-semibold transition-colors"
+                      className="text-sm text-blue-600 hover:text-blue-700 font-semibold transition-colors cursor-pointer"
                     >
                       Clear all
                     </button>
@@ -375,7 +375,7 @@ function DoctorsPageContent() {
                     {selectedSpecialty !== "All Specialties" && (
                       <button
                         onClick={() => handleSpecialtyChange("All Specialties")}
-                        className="px-4 py-2 bg-gradient-to-r from-blue-50 to-cyan-50 text-blue-700 rounded-xl text-sm font-semibold hover:from-blue-100 hover:to-cyan-100 transition-all duration-200 flex items-center gap-2 border border-blue-200/50 shadow-sm"
+                        className="px-4 py-2 bg-gradient-to-r from-blue-50 to-cyan-50 text-blue-700 rounded-xl text-sm font-semibold hover:from-blue-100 hover:to-cyan-100 transition-all duration-200 flex items-center gap-2 border border-blue-200/50 shadow-sm cursor-pointer"
                       >
                         {selectedSpecialty}
                         <svg
@@ -396,7 +396,7 @@ function DoctorsPageContent() {
                     {selectedLocation !== "All Locations" && (
                       <button
                         onClick={() => setSelectedLocation("All Locations")}
-                        className="px-4 py-2 bg-gradient-to-r from-blue-50 to-cyan-50 text-blue-700 rounded-xl text-sm font-semibold hover:from-blue-100 hover:to-cyan-100 transition-all duration-200 flex items-center gap-2 border border-blue-200/50 shadow-sm"
+                        className="px-4 py-2 bg-gradient-to-r from-blue-50 to-cyan-50 text-blue-700 rounded-xl text-sm font-semibold hover:from-blue-100 hover:to-cyan-100 transition-all duration-200 flex items-center gap-2 border border-blue-200/50 shadow-sm cursor-pointer"
                       >
                         {selectedLocation}
                         <svg
@@ -417,9 +417,9 @@ function DoctorsPageContent() {
                     {searchQuery && (
                       <button
                         onClick={() => setSearchQuery("")}
-                        className="px-4 py-2 bg-gradient-to-r from-blue-50 to-cyan-50 text-blue-700 rounded-xl text-sm font-semibold hover:from-blue-100 hover:to-cyan-100 transition-all duration-200 flex items-center gap-2 border border-blue-200/50 shadow-sm"
+                        className="px-4 py-2 bg-gradient-to-r from-blue-50 to-cyan-50 text-blue-700 rounded-xl text-sm font-semibold hover:from-blue-100 hover:to-cyan-100 transition-all duration-200 flex items-center gap-2 border border-blue-200/50 shadow-sm cursor-pointer"
                       >
-                        "{searchQuery}"
+                        &quot;{searchQuery}&quot;
                         <svg
                           className="w-4 h-4"
                           fill="none"
@@ -536,7 +536,7 @@ function DoctorsPageContent() {
                     setSearchQuery("");
                     router.push("/doctors");
                   }}
-                  className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-2xl hover:shadow-2xl hover:scale-105 transition-all duration-200 text-lg"
+                  className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-2xl hover:shadow-2xl hover:scale-105 transition-all duration-200 text-lg cursor-pointer"
                 >
                   Clear All Filters
                 </button>

@@ -151,13 +151,13 @@ export default function Hero() {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-12 md:mb-16 px-4">
               <a
                 href="/doctors"
-                className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-200 text-base sm:text-lg text-center"
+                className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-200 text-base sm:text-lg text-center cursor-pointer"
               >
                 Find Doctors
               </a>
               <a
                 href="#specialties"
-                className="px-6 sm:px-8 py-3 sm:py-4 bg-white text-blue-600 font-semibold rounded-full border-2 border-blue-600 hover:bg-blue-50 transition-all duration-200 text-base sm:text-lg text-center"
+                className="px-6 sm:px-8 py-3 sm:py-4 bg-white text-blue-600 font-semibold rounded-full border-2 border-blue-600 hover:bg-blue-50 transition-all duration-200 text-base sm:text-lg text-center cursor-pointer"
               >
                 Browse Specialties
               </a>

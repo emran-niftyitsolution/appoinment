@@ -1,9 +1,9 @@
 "use client";
 
+import { Button, Form, Input, message } from "antd";
 import { useState } from "react";
-import { Form, Input, Button, message } from "antd";
-import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const { TextArea } = Input;
 
@@ -41,8 +41,8 @@ export default function ContactPage() {
               </span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 leading-relaxed">
-              Have questions? We&apos;d love to hear from you. Send us a
-              message and we&apos;ll respond as soon as possible.
+              Have questions? We&apos;d love to hear from you. Send us a message
+              and we&apos;ll respond as soon as possible.
             </p>
           </div>
         </div>
@@ -67,19 +67,33 @@ export default function ContactPage() {
                   >
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                       <Form.Item
-                        label={<span className="text-sm font-semibold">First Name</span>}
+                        label={
+                          <span className="text-sm font-semibold">
+                            First Name
+                          </span>
+                        }
                         name="firstName"
                         rules={[
-                          { required: true, message: "Please enter your first name" },
+                          {
+                            required: true,
+                            message: "Please enter your first name",
+                          },
                         ]}
                       >
                         <Input placeholder="John" className="rounded-xl" />
                       </Form.Item>
                       <Form.Item
-                        label={<span className="text-sm font-semibold">Last Name</span>}
+                        label={
+                          <span className="text-sm font-semibold">
+                            Last Name
+                          </span>
+                        }
                         name="lastName"
                         rules={[
-                          { required: true, message: "Please enter your last name" },
+                          {
+                            required: true,
+                            message: "Please enter your last name",
+                          },
                         ]}
                       >
                         <Input placeholder="Doe" className="rounded-xl" />
@@ -87,11 +101,16 @@ export default function ContactPage() {
                     </div>
 
                     <Form.Item
-                      label={<span className="text-sm font-semibold">Email</span>}
+                      label={
+                        <span className="text-sm font-semibold">Email</span>
+                      }
                       name="email"
                       rules={[
                         { required: true, message: "Please enter your email" },
-                        { type: "email", message: "Please enter a valid email" },
+                        {
+                          type: "email",
+                          message: "Please enter a valid email",
+                        },
                       ]}
                     >
                       <Input
@@ -102,10 +121,15 @@ export default function ContactPage() {
                     </Form.Item>
 
                     <Form.Item
-                      label={<span className="text-sm font-semibold">Phone</span>}
+                      label={
+                        <span className="text-sm font-semibold">Phone</span>
+                      }
                       name="phone"
                       rules={[
-                        { required: true, message: "Please enter your phone number" },
+                        {
+                          required: true,
+                          message: "Please enter your phone number",
+                        },
                       ]}
                     >
                       <Input
@@ -116,20 +140,30 @@ export default function ContactPage() {
                     </Form.Item>
 
                     <Form.Item
-                      label={<span className="text-sm font-semibold">Subject</span>}
+                      label={
+                        <span className="text-sm font-semibold">Subject</span>
+                      }
                       name="subject"
                       rules={[
                         { required: true, message: "Please enter a subject" },
                       ]}
                     >
-                      <Input placeholder="How can we help?" className="rounded-xl" />
+                      <Input
+                        placeholder="How can we help?"
+                        className="rounded-xl"
+                      />
                     </Form.Item>
 
                     <Form.Item
-                      label={<span className="text-sm font-semibold">Message</span>}
+                      label={
+                        <span className="text-sm font-semibold">Message</span>
+                      }
                       name="message"
                       rules={[
-                        { required: true, message: "Please enter your message" },
+                        {
+                          required: true,
+                          message: "Please enter your message",
+                        },
                       ]}
                     >
                       <TextArea
@@ -145,7 +179,7 @@ export default function ContactPage() {
                         htmlType="submit"
                         size="large"
                         loading={isSubmitting}
-                        className="w-full sm:w-auto px-8 py-6 h-auto rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 border-none hover:opacity-90 text-base font-semibold"
+                        className="w-full sm:w-auto px-8 py-6 h-auto rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 border-none hover:opacity-90 text-base font-semibold cursor-pointer"
                       >
                         {isSubmitting ? "Sending..." : "Send Message"}
                       </Button>
@@ -230,7 +264,8 @@ export default function ContactPage() {
                     Address
                   </h3>
                   <p className="text-sm sm:text-base text-gray-600">
-                    123 Medical Center Dr<br />
+                    123 Medical Center Dr
+                    <br />
                     Health City, HC 12345
                   </p>
                 </div>
@@ -244,4 +279,3 @@ export default function ContactPage() {
     </main>
   );
 }
-

@@ -1,7 +1,7 @@
 "use client";
 
+import { Button, Form, Input, message, Modal, Select } from "antd";
 import { useState } from "react";
-import { Modal, Form, Input, Select, Button, message } from "antd";
 
 const { TextArea } = Input;
 
@@ -59,7 +59,8 @@ export default function AppointmentModal({
       const formatSingleTime = (t: string) => {
         const [hour, minute] = t.split(":");
         const hourNum = parseInt(hour);
-        const hour12 = hourNum > 12 ? hourNum - 12 : hourNum === 0 ? 12 : hourNum;
+        const hour12 =
+          hourNum > 12 ? hourNum - 12 : hourNum === 0 ? 12 : hourNum;
         const ampm = hourNum >= 12 ? "PM" : "AM";
         return `${hour12}:${minute} ${ampm}`;
       };
@@ -109,8 +110,8 @@ export default function AppointmentModal({
           <p className="text-sm text-gray-600">
             <span className="font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md">
               {doctorName}
-            </span>
-            {' '}- {doctorSpecialty}
+            </span>{" "}
+            - {doctorSpecialty}
           </p>
         </div>
 
@@ -165,11 +166,11 @@ export default function AppointmentModal({
 
             {/* Reason for Visit */}
             <Form.Item
-              label={<span className="text-xs font-semibold">Reason for Visit</span>}
+              label={
+                <span className="text-xs font-semibold">Reason for Visit</span>
+              }
               name="reason"
-              rules={[
-                { required: true, message: "Please select a reason" },
-              ]}
+              rules={[{ required: true, message: "Please select a reason" }]}
               className="mb-1"
             >
               <Select
@@ -191,9 +192,7 @@ export default function AppointmentModal({
               <Form.Item
                 label={<span className="text-xs font-semibold">Full Name</span>}
                 name="name"
-                rules={[
-                  { required: true, message: "Required" },
-                ]}
+                rules={[{ required: true, message: "Required" }]}
                 className="mb-1"
               >
                 <Input
@@ -222,11 +221,11 @@ export default function AppointmentModal({
             </div>
 
             <Form.Item
-              label={<span className="text-xs font-semibold">Phone Number</span>}
+              label={
+                <span className="text-xs font-semibold">Phone Number</span>
+              }
               name="phone"
-              rules={[
-                { required: true, message: "Required" },
-              ]}
+              rules={[{ required: true, message: "Required" }]}
               className="mb-1"
             >
               <Input
@@ -238,8 +237,10 @@ export default function AppointmentModal({
             </Form.Item>
 
             {/* Additional Notes - Compact */}
-            <Form.Item 
-              label={<span className="text-xs font-semibold">Notes (Optional)</span>} 
+            <Form.Item
+              label={
+                <span className="text-xs font-semibold">Notes (Optional)</span>
+              }
               name="notes"
               className="mb-1"
             >
@@ -255,7 +256,7 @@ export default function AppointmentModal({
               <Button
                 size="large"
                 onClick={handleCancel}
-                className="flex-1 rounded-lg"
+                className="flex-1 rounded-lg cursor-pointer"
               >
                 Cancel
               </Button>
@@ -264,7 +265,7 @@ export default function AppointmentModal({
                 htmlType="submit"
                 size="large"
                 loading={isSubmitting}
-                className="flex-1 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 border-none hover:opacity-90"
+                className="flex-1 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-500 border-none hover:opacity-90 cursor-pointer"
               >
                 {isSubmitting ? "Booking..." : "Book Appointment"}
               </Button>

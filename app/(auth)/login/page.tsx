@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Form, Input, message } from "antd";
+import { Button, Checkbox, Form, Input, message } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -191,7 +191,7 @@ export default function LoginPage() {
                 <Input
                   type="email"
                   placeholder="john@example.com"
-                  className="rounded-xl"
+                  className="rounded-xl h-14 text-base"
                 />
               </Form.Item>
 
@@ -208,7 +208,7 @@ export default function LoginPage() {
               >
                 <Input.Password
                   placeholder="Enter your password"
-                  className="rounded-xl"
+                  className="rounded-xl h-14 text-base"
                 />
               </Form.Item>
 
@@ -218,15 +218,9 @@ export default function LoginPage() {
                   valuePropName="checked"
                   className="mb-0"
                 >
-                  <label className="flex items-center cursor-pointer">
-                    <input
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                    />
-                    <span className="ml-2 text-sm text-gray-600">
-                      Remember me
-                    </span>
-                  </label>
+                  <Checkbox className="text-sm text-gray-600">
+                    Remember me
+                  </Checkbox>
                 </Form.Item>
                 <Link
                   href="/forgot-password"
@@ -242,7 +236,7 @@ export default function LoginPage() {
                   htmlType="submit"
                   size="large"
                   loading={isSubmitting}
-                  className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 border-none hover:opacity-90 text-base font-semibold h-12"
+                  className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 border-none hover:opacity-90 text-base font-semibold h-14 cursor-pointer"
                 >
                   {isSubmitting ? "Signing in..." : "Sign In"}
                 </Button>
@@ -265,7 +259,7 @@ export default function LoginPage() {
             <div className="grid grid-cols-2 gap-3 mb-6">
               <button
                 type="button"
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path
@@ -291,7 +285,7 @@ export default function LoginPage() {
               </button>
               <button
                 type="button"
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
                 <svg
                   className="w-5 h-5"

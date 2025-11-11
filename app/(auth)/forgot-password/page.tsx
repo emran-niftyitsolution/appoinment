@@ -132,7 +132,7 @@ export default function ForgotPasswordPage() {
                     <Input
                       type="email"
                       placeholder="john@example.com"
-                      className="rounded-xl"
+                      className="rounded-xl h-14 text-base"
                     />
                   </Form.Item>
 
@@ -142,7 +142,7 @@ export default function ForgotPasswordPage() {
                       htmlType="submit"
                       size="large"
                       loading={isSubmitting}
-                      className="mt-5 w-full rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 border-none hover:opacity-90 text-base font-semibold h-12"
+                      className="mt-5 w-full rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 border-none hover:opacity-90 text-base font-semibold h-14 cursor-pointer"
                     >
                       {isSubmitting ? "Sending..." : "Send Reset Link"}
                     </Button>
