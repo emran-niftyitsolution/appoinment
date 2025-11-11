@@ -1,3 +1,4 @@
+import { AuthProvider } from "@/contexts/AuthContext";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -30,7 +31,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <AntdRegistry>{children}</AntdRegistry>
+        <AntdRegistry>
+          <AuthProvider>{children}</AuthProvider>
+        </AntdRegistry>
       </body>
     </html>
   );

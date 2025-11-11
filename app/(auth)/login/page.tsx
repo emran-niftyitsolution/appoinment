@@ -1,26 +1,40 @@
 "use client";
 
+import { useAuth } from "@/contexts/AuthContext";
 import { Button, Checkbox, Form, Input, message } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function LoginPage() {
   const [form] = Form.useForm();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user, loading, login } = useAuth();
 
-  const handleSubmit = async () => {
-    setIsSubmitting(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    message.success("Login successful! Redirecting...");
-    // Redirect to home page after successful login
-    setTimeout(() => {
+  useEffect(() => {
+    if (!loading && user) {
       router.push("/");
-    }, 1000);
+    }
+  }, [user, loading, router]);
+
+  const handleSubmit = async (values: { email: string; password: string }) => {
+    setIsSubmitting(true);
+    try {
+      await login(values.email, values.password);
+      message.success("Login successful! Redirecting...");
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to login";
+      message.error(errorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  if (loading || user) {
+    return null; // Or a loading spinner
+  }
 
   return (
     <div className="min-h-screen flex">

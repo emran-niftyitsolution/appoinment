@@ -1,22 +1,55 @@
 "use client";
 
+import { useAuth } from "@/contexts/AuthContext";
 import { Button, Form, Input, message } from "antd";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function ForgotPasswordPage() {
   const [form] = Form.useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isEmailSent, setIsEmailSent] = useState(false);
+  const router = useRouter();
+  const { user, loading } = useAuth();
 
-  const handleSubmit = async () => {
+  useEffect(() => {
+    if (!loading && user) {
+      router.push("/");
+    }
+  }, [user, loading, router]);
+
+  const handleSubmit = async (values: any) => {
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setIsEmailSent(true);
-    message.success("Password reset link sent to your email!");
+    try {
+      const response = await fetch("/api/auth/forgot-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: values.email,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to reset password");
+      }
+
+      setIsEmailSent(true);
+      message.success(data.message || "Password reset successful!");
+    } catch (error: any) {
+      message.error(error.message || "Failed to reset password");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  if (loading || user) {
+    return null; // Or a loading spinner
+  }
 
   return (
     <div className="min-h-screen flex">

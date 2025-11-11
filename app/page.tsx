@@ -1,8 +1,8 @@
-import Hero from './components/Hero'
-import Statistics from './components/Statistics'
-import Steps from './components/Steps'
-import MedicalCategories from './components/MedicalCategories'
-import Footer from './components/Footer'
+import Footer from "./components/Footer";
+import Hero from "./components/Hero";
+import MedicalCategories from "./components/MedicalCategories";
+import Statistics from "./components/Statistics";
+import Steps from "./components/Steps";
 
 export default function Home() {
   return (
@@ -13,5 +13,5 @@ export default function Home() {
       <MedicalCategories />
       <Footer />
     </main>
-  )
+  );
 }

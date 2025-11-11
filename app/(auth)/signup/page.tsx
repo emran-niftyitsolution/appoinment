@@ -1,26 +1,54 @@
 "use client";
 
+import { useAuth } from "@/contexts/AuthContext";
 import { Button, Checkbox, Form, Input, message, Radio } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SignupPage() {
   const [form] = Form.useForm();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user, loading, signup } = useAuth();
 
-  const handleSubmit = async () => {
-    setIsSubmitting(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    message.success("Account created successfully! Redirecting...");
-    // Redirect to home page after successful signup
-    setTimeout(() => {
+  useEffect(() => {
+    if (!loading && user) {
       router.push("/");
-    }, 1000);
+    }
+  }, [user, loading, router]);
+
+  const handleSubmit = async (values: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    password: string;
+    userType?: string;
+  }) => {
+    setIsSubmitting(true);
+    try {
+      await signup({
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        phone: values.phone,
+        password: values.password,
+        userType: values.userType || "patient",
+      });
+      message.success("Account created successfully! Redirecting...");
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to create account";
+      message.error(errorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  if (loading || user) {
+    return null; // Or a loading spinner
+  }
 
   return (
     <div className="min-h-screen flex">
