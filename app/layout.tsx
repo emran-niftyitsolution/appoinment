@@ -1,6 +1,6 @@
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { AntdRegistry } from "@ant-design/nextjs-registry";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,7 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "DoctorFind - Find Your Perfect Doctor Today",
-  description: "Connect with trusted healthcare professionals in your area. Book appointments, get consultations, and take control of your health.",
+  description:
+    "Connect with trusted healthcare professionals in your area. Book appointments, get consultations, and take control of your health.",
 };
 
 export default function RootLayout({
