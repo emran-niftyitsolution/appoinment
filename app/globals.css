@@ -75,6 +75,36 @@ body {
   border-radius: 0.75rem !important;
 }
 
+/* Ensure Input components match height */
+.ant-input-lg {
+  height: 3.5rem !important;
+  min-height: 3.5rem !important;
+  line-height: 3.5rem !important;
+  padding: 0 1rem !important;
+}
+
+/* Ensure TimePicker matches input height */
+.ant-picker-large {
+  height: 3.5rem !important;
+  min-height: 3.5rem !important;
+}
+
+.ant-picker-large .ant-picker-input > input {
+  height: 3.5rem !important;
+  line-height: 3.5rem !important;
+}
+
+/* Ensure InputNumber matches input height */
+.ant-input-number-lg {
+  height: 3.5rem !important;
+  min-height: 3.5rem !important;
+}
+
+.ant-input-number-lg .ant-input-number-input {
+  height: 3.5rem !important;
+  line-height: 3.5rem !important;
+}
+
 .ant-btn {
   border-radius: 0.75rem !important;
 }

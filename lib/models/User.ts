@@ -37,6 +37,14 @@ export interface User {
   workHistory?: WorkHistory[];
   specialties?: Specialty[];
   languages?: string[];
+  consultations?: Array<{
+    weekDay: string;
+    timeSlots: Array<{ startTime: string; endTime: string }>;
+    hospital: string;
+    location: string;
+    consultationFee: number;
+    active?: boolean;
+  }>;
   workingHours?: {
     day: string;
     slots: { startTime: string; endTime: string }[];

@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import ConsultationsSection from "./components/ConsultationsSection";
 import EducationSection from "./components/EducationSection";
 import GeneralInfoSection from "./components/GeneralInfoSection";
 import LanguagesSection from "./components/LanguagesSection";
@@ -18,6 +19,7 @@ type ActiveSection =
   | "education"
   | "work-history"
   | "specialties"
+  | "consultations"
   | "languages";
 
 function ProfilePageContent() {
@@ -37,6 +39,7 @@ function ProfilePageContent() {
     "education",
     "work-history",
     "specialties",
+    "consultations",
     "languages",
   ];
   const initialSection =
@@ -55,6 +58,7 @@ function ProfilePageContent() {
         "education",
         "work-history",
         "specialties",
+        "consultations",
         "languages",
       ];
     }
@@ -118,6 +122,16 @@ function ProfilePageContent() {
       values.education = (user as any).education || [];
       values.workHistory = (user as any).workHistory || [];
       values.specialties = (user as any).specialties || [];
+      // Convert consultations time slots from string to dayjs
+      const consultations = (user as any).consultations || [];
+      values.consultations = consultations.map((consultation: any) => ({
+        ...consultation,
+        timeSlots:
+          consultation.timeSlots?.map((slot: any) => ({
+            startTime: slot.startTime ? dayjs(slot.startTime, "HH:mm") : null,
+            endTime: slot.endTime ? dayjs(slot.endTime, "HH:mm") : null,
+          })) || [],
+      }));
       values.languages = (user as any).languages || [];
     }
 
@@ -184,6 +198,24 @@ function ProfilePageContent() {
         user.userType === "doctor"
       ) {
         sectionFields.specialties = (user as any).specialties || [];
+      } else if (
+        activeSection === "consultations" &&
+        user.userType === "doctor"
+      ) {
+        // Convert time slots from string format to dayjs objects
+        const consultations = (user as any).consultations || [];
+        sectionFields.consultations = consultations.map(
+          (consultation: any) => ({
+            ...consultation,
+            timeSlots:
+              consultation.timeSlots?.map((slot: any) => ({
+                startTime: slot.startTime
+                  ? dayjs(slot.startTime, "HH:mm")
+                  : null,
+                endTime: slot.endTime ? dayjs(slot.endTime, "HH:mm") : null,
+              })) || [],
+          })
+        );
       } else if (activeSection === "languages" && user.userType === "doctor") {
         sectionFields.languages = (user as any).languages || [];
       }
@@ -223,6 +255,27 @@ function ProfilePageContent() {
         dayjs.isDayjs(submitValues.startedWorking)
       ) {
         submitValues.startedWorking = submitValues.startedWorking.toISOString();
+      }
+
+      // Convert consultations time slots from dayjs to string format
+      if (
+        submitValues.consultations &&
+        Array.isArray(submitValues.consultations)
+      ) {
+        submitValues.consultations = submitValues.consultations.map(
+          (consultation: any) => ({
+            ...consultation,
+            timeSlots:
+              consultation.timeSlots?.map((slot: any) => ({
+                startTime: dayjs.isDayjs(slot.startTime)
+                  ? slot.startTime.format("HH:mm")
+                  : slot.startTime,
+                endTime: dayjs.isDayjs(slot.endTime)
+                  ? slot.endTime.format("HH:mm")
+                  : slot.endTime,
+              })) || [],
+          })
+        );
       }
 
       const response = await fetch("/api/user/profile", {
@@ -370,6 +423,25 @@ function ProfilePageContent() {
             ),
           },
           {
+            key: "consultations",
+            label: "Consultations",
+            icon: (
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+            ),
+          },
+          {
             key: "languages",
             label: "Languages",
             icon: (
@@ -474,6 +546,22 @@ function ProfilePageContent() {
                       } else if (activeSection === "specialties") {
                         currentSectionFields.specialties =
                           (user as any).specialties || [];
+                      } else if (activeSection === "consultations") {
+                        const consultations = (user as any).consultations || [];
+                        currentSectionFields.consultations = consultations.map(
+                          (consultation: any) => ({
+                            ...consultation,
+                            timeSlots:
+                              consultation.timeSlots?.map((slot: any) => ({
+                                startTime: slot.startTime
+                                  ? dayjs(slot.startTime, "HH:mm")
+                                  : null,
+                                endTime: slot.endTime
+                                  ? dayjs(slot.endTime, "HH:mm")
+                                  : null,
+                              })) || [],
+                          })
+                        );
                       } else if (activeSection === "languages") {
                         currentSectionFields.languages =
                           (user as any).languages || [];
@@ -569,6 +657,11 @@ function ProfilePageContent() {
                 {/* Specialties & Expertise Section */}
                 {activeSection === "specialties" && isDoctor && (
                   <SpecialtiesSection isEditing={isEditing} />
+                )}
+
+                {/* Consultations Section */}
+                {activeSection === "consultations" && isDoctor && (
+                  <ConsultationsSection isEditing={isEditing} />
                 )}
 
                 {/* Languages Section */}
