@@ -2,8 +2,9 @@
 
 import { useAuth } from "@/contexts/AuthContext";
 import { Avatar, Button, Card, Form, message } from "antd";
+import dayjs from "dayjs";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import EducationSection from "./components/EducationSection";
@@ -11,15 +12,13 @@ import GeneralInfoSection from "./components/GeneralInfoSection";
 import LanguagesSection from "./components/LanguagesSection";
 import SpecialtiesSection from "./components/SpecialtiesSection";
 import WorkHistorySection from "./components/WorkHistorySection";
-import WorkingHoursSection from "./components/WorkingHoursSection";
 
 type ActiveSection =
   | "general"
   | "education"
   | "work-history"
   | "specialties"
-  | "languages"
-  | "working-hours";
+  | "languages";
 
 function ProfilePageContent() {
   const { user, loading, checkAuth } = useAuth();
@@ -28,6 +27,8 @@ function ProfilePageContent() {
   const [form] = Form.useForm();
   const [isEditing, setIsEditing] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const hasCalledMeApi = useRef(false);
+  const justSaved = useRef(false);
 
   // Get active section from URL query or default to "general"
   const sectionFromUrl = searchParams.get("section") as ActiveSection | null;
@@ -37,7 +38,6 @@ function ProfilePageContent() {
     "work-history",
     "specialties",
     "languages",
-    "working-hours",
   ];
   const initialSection =
     sectionFromUrl && validSections.includes(sectionFromUrl)
@@ -46,11 +46,97 @@ function ProfilePageContent() {
   const [activeSection, setActiveSection] =
     useState<ActiveSection>(initialSection);
 
+  // Get available sections based on user type
+  const getAvailableSections = (): ActiveSection[] => {
+    const isDoctor = user?.userType === "doctor";
+    if (isDoctor) {
+      return [
+        "general",
+        "education",
+        "work-history",
+        "specialties",
+        "languages",
+      ];
+    }
+    return ["general"];
+  };
+
+  const availableSections = getAvailableSections();
+  const isDoctor = user?.userType === "doctor";
+
+  // Navigation functions
+  const goToPrevious = () => {
+    const currentIndex = availableSections.indexOf(activeSection);
+    if (currentIndex > 0) {
+      const previousSection = availableSections[currentIndex - 1];
+      setActiveSection(previousSection);
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("section", previousSection);
+      router.push(`/profile?${params.toString()}`, { scroll: false });
+    }
+  };
+
+  const goToNext = () => {
+    const currentIndex = availableSections.indexOf(activeSection);
+    if (currentIndex < availableSections.length - 1) {
+      const nextSection = availableSections[currentIndex + 1];
+      setActiveSection(nextSection);
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("section", nextSection);
+      router.push(`/profile?${params.toString()}`, { scroll: false });
+    }
+  };
+
+  const currentIndex = availableSections.indexOf(activeSection);
+  const isFirstSection = currentIndex === 0;
+  const isLastSection = currentIndex === availableSections.length - 1;
+
+  // Compute initial values from user data (memoized)
+  const initialValues = useMemo(() => {
+    if (!user) return {};
+
+    const values: any = {
+      firstName: user.firstName || "",
+      lastName: user.lastName || "",
+      phone: user.phone || "",
+      designation: (user as any).designation || "",
+      institute: (user as any).institute || "",
+    };
+
+    // Add doctor-specific fields
+    if (user.userType === "doctor") {
+      values.specialty = (user as any).specialty || "";
+      values.otherSpecialties = (user as any).otherSpecialties || [];
+      values.startedWorking = (user as any).startedWorking
+        ? dayjs((user as any).startedWorking)
+        : undefined;
+      values.licenseNumber = (user as any).licenseNumber || "";
+      values.bio = (user as any).bio || "";
+      values.location = (user as any).location || "";
+      values.price = (user as any).price || "";
+      values.available = (user as any).available ?? true;
+      values.education = (user as any).education || [];
+      values.workHistory = (user as any).workHistory || [];
+      values.specialties = (user as any).specialties || [];
+      values.languages = (user as any).languages || [];
+    }
+
+    return values;
+  }, [user]);
+
   useEffect(() => {
     if (!loading && !user) {
       router.push("/login");
     }
   }, [user, loading, router]);
+
+  // Call /api/auth/me when profile page loads to get fresh user data (only once)
+  useEffect(() => {
+    if (!loading && user && !hasCalledMeApi.current) {
+      hasCalledMeApi.current = true;
+      checkAuth();
+    }
+  }, [loading, user, checkAuth]);
 
   // Sync activeSection with URL query parameter
   useEffect(() => {
@@ -61,43 +147,53 @@ function ProfilePageContent() {
       "work-history",
       "specialties",
       "languages",
-      "working-hours",
     ];
     if (sectionFromUrl && validSections.includes(sectionFromUrl)) {
       setActiveSection(sectionFromUrl);
     }
   }, [searchParams]);
 
+  // Set default values for all form fields when user data is available
+  // Skip if we just saved to prevent overwriting saved values
   useEffect(() => {
-    if (user) {
-      form.setFieldsValue({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        phone: user.phone,
-        designation: (user as any).designation,
-        // Doctor-specific fields
-        specialty: (user as any).specialty,
-        experience: (user as any).experience,
-        licenseNumber: (user as any).licenseNumber,
-        bio: (user as any).bio,
-        location: (user as any).location,
-        price: (user as any).price,
-        available: (user as any).available ?? true,
-        education: (user as any).education || [],
-        workHistory: (user as any).workHistory || [],
-        specialties: (user as any).specialties || [],
-        languages: (user as any).languages || [],
-        workingHours: (user as any).workingHours || [],
-        clinicName: (user as any).clinicName,
-        address: (user as any).address,
-        city: (user as any).city,
-        state: (user as any).state,
-        zipCode: (user as any).zipCode,
-        consultationFee: (user as any).consultationFee,
-      });
+    if (user && Object.keys(initialValues).length > 0 && !justSaved.current) {
+      form.setFieldsValue(initialValues);
     }
-  }, [user, form]);
+    // Reset the flag after a short delay
+    if (justSaved.current) {
+      setTimeout(() => {
+        justSaved.current = false;
+      }, 100);
+    }
+  }, [user, form, initialValues]);
+
+  // Load section-specific data when active section changes
+  useEffect(() => {
+    if (user && activeSection !== "general") {
+      const sectionFields: any = {};
+
+      if (activeSection === "education" && user.userType === "doctor") {
+        sectionFields.education = (user as any).education || [];
+      } else if (
+        activeSection === "work-history" &&
+        user.userType === "doctor"
+      ) {
+        sectionFields.workHistory = (user as any).workHistory || [];
+      } else if (
+        activeSection === "specialties" &&
+        user.userType === "doctor"
+      ) {
+        sectionFields.specialties = (user as any).specialties || [];
+      } else if (activeSection === "languages" && user.userType === "doctor") {
+        sectionFields.languages = (user as any).languages || [];
+      }
+
+      if (Object.keys(sectionFields).length > 0) {
+        // Set fields as default values
+        form.setFieldsValue(sectionFields);
+      }
+    }
+  }, [activeSection, user, form]);
 
   if (loading) {
     return (
@@ -117,16 +213,25 @@ function ProfilePageContent() {
     return null;
   }
 
-  const handleSubmit = async (values: any) => {
+  const handleSubmit = async (values: any, navigateToNext: boolean = false) => {
     setIsSubmitting(true);
     try {
+      // Convert dayjs date to ISO string if present
+      const submitValues = { ...values };
+      if (
+        submitValues.startedWorking &&
+        dayjs.isDayjs(submitValues.startedWorking)
+      ) {
+        submitValues.startedWorking = submitValues.startedWorking.toISOString();
+      }
+
       const response = await fetch("/api/user/profile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify(values),
+        body: JSON.stringify(submitValues),
       });
 
       const data = await response.json();
@@ -136,8 +241,34 @@ function ProfilePageContent() {
       }
 
       message.success("Profile updated successfully!");
-      setIsEditing(false);
+
+      // Preserve form values before updating user state
+      // Convert startedWorking back to dayjs format if needed
+      const preservedValues: any = { ...values };
+      if (
+        preservedValues.startedWorking &&
+        typeof preservedValues.startedWorking === "string"
+      ) {
+        preservedValues.startedWorking = dayjs(preservedValues.startedWorking);
+      }
+
+      // Mark that we just saved to prevent useEffect from overwriting
+      justSaved.current = true;
+
+      // Set form values immediately to prevent reset
+      form.setFieldsValue(preservedValues);
+
+      // Refresh auth context to update user state
       await checkAuth();
+
+      // Navigate to next section if requested
+      // Keep edit mode state when navigating
+      if (navigateToNext && !isLastSection) {
+        goToNext();
+      } else {
+        // Only exit edit mode if not navigating to next section
+        setIsEditing(false);
+      }
     } catch (error: unknown) {
       const errorMessage =
         error instanceof Error ? error.message : "Failed to update profile";
@@ -146,8 +277,6 @@ function ProfilePageContent() {
       setIsSubmitting(false);
     }
   };
-
-  const isDoctor = user.userType === "doctor";
 
   const sidebarItems = [
     {
@@ -259,25 +388,6 @@ function ProfilePageContent() {
               </svg>
             ),
           },
-          {
-            key: "working-hours",
-            label: "Working Hours",
-            icon: (
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            ),
-          },
         ]
       : []),
   ];
@@ -326,34 +436,51 @@ function ProfilePageContent() {
               size="large"
               onClick={() => {
                 if (isEditing) {
-                  // Restore original user data instead of resetting
+                  // Restore original user data for current section only
                   if (user) {
-                    form.setFieldsValue({
+                    const currentSectionFields: any = {
                       firstName: user.firstName,
                       lastName: user.lastName,
-                      email: user.email,
                       phone: user.phone,
                       designation: (user as any).designation,
-                      // Doctor-specific fields
-                      specialty: (user as any).specialty,
-                      experience: (user as any).experience,
-                      licenseNumber: (user as any).licenseNumber,
-                      bio: (user as any).bio,
-                      location: (user as any).location,
-                      price: (user as any).price,
-                      available: (user as any).available ?? true,
-                      education: (user as any).education || [],
-                      workHistory: (user as any).workHistory || [],
-                      specialties: (user as any).specialties || [],
-                      languages: (user as any).languages || [],
-                      workingHours: (user as any).workingHours || [],
-                      clinicName: (user as any).clinicName,
-                      address: (user as any).address,
-                      city: (user as any).city,
-                      state: (user as any).state,
-                      zipCode: (user as any).zipCode,
-                      consultationFee: (user as any).consultationFee,
-                    });
+                      institute: (user as any).institute,
+                    };
+
+                    // Add doctor-specific general info fields
+                    if (user.userType === "doctor") {
+                      currentSectionFields.specialty = (user as any).specialty;
+                      currentSectionFields.otherSpecialties =
+                        (user as any).otherSpecialties || [];
+                      currentSectionFields.startedWorking = (user as any)
+                        .startedWorking
+                        ? dayjs((user as any).startedWorking)
+                        : undefined;
+                      currentSectionFields.licenseNumber = (
+                        user as any
+                      ).licenseNumber;
+                      currentSectionFields.bio = (user as any).bio;
+                      currentSectionFields.location = (user as any).location;
+                      currentSectionFields.price = (user as any).price;
+                      currentSectionFields.available =
+                        (user as any).available ?? true;
+
+                      // Add section-specific fields based on active section
+                      if (activeSection === "education") {
+                        currentSectionFields.education =
+                          (user as any).education || [];
+                      } else if (activeSection === "work-history") {
+                        currentSectionFields.workHistory =
+                          (user as any).workHistory || [];
+                      } else if (activeSection === "specialties") {
+                        currentSectionFields.specialties =
+                          (user as any).specialties || [];
+                      } else if (activeSection === "languages") {
+                        currentSectionFields.languages =
+                          (user as any).languages || [];
+                      }
+                    }
+
+                    form.setFieldsValue(currentSectionFields);
                   }
                   setIsEditing(false);
                 } else {
@@ -417,7 +544,8 @@ function ProfilePageContent() {
               <Form
                 form={form}
                 layout="vertical"
-                onFinish={handleSubmit}
+                onFinish={(values) => handleSubmit(values, false)}
+                initialValues={initialValues}
                 className="space-y-6"
               >
                 {/* General Info Section */}
@@ -448,19 +576,92 @@ function ProfilePageContent() {
                   <LanguagesSection isEditing={isEditing} />
                 )}
 
-                {/* Working Hours Section */}
-                {activeSection === "working-hours" && isDoctor && (
-                  <WorkingHoursSection isEditing={isEditing} />
+                {/* Navigation Buttons - Only show when not editing */}
+                {!isEditing && (
+                  <div className="flex flex-col sm:flex-row gap-4 justify-between items-center mt-6 pt-6 border-t border-gray-200">
+                    <Button
+                      type="default"
+                      size="large"
+                      onClick={goToPrevious}
+                      disabled={isFirstSection}
+                      className="h-14 px-6 rounded-full cursor-pointer"
+                      icon={
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 19l-7-7 7-7"
+                          />
+                        </svg>
+                      }
+                    >
+                      Previous
+                    </Button>
+
+                    <div className="text-sm text-gray-600">
+                      {currentIndex + 1} of {availableSections.length}
+                    </div>
+
+                    <Button
+                      type="default"
+                      size="large"
+                      onClick={goToNext}
+                      disabled={isLastSection}
+                      className="h-14 px-6 rounded-full cursor-pointer"
+                      icon={
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      }
+                    >
+                      Next
+                    </Button>
+                  </div>
                 )}
 
                 {/* Action Buttons */}
                 {isEditing && (
                   <div className="flex flex-col sm:flex-row gap-4 justify-end mt-6">
                     <Button
+                      type="default"
+                      size="large"
+                      onClick={() => {
+                        form.submit();
+                      }}
+                      loading={isSubmitting}
+                      className="h-14 px-8 rounded-full cursor-pointer"
+                    >
+                      Save
+                    </Button>
+                    <Button
                       type="primary"
                       size="large"
-                      htmlType="submit"
+                      onClick={async () => {
+                        try {
+                          const values = await form.validateFields();
+                          await handleSubmit(values, true);
+                        } catch (_error) {
+                          // Validation failed
+                        }
+                      }}
                       loading={isSubmitting}
+                      disabled={isLastSection}
                       className="h-14 px-8 rounded-full cursor-pointer"
                       style={{
                         background: "#1e40af",
@@ -468,7 +669,7 @@ function ProfilePageContent() {
                         color: "#ffffff",
                       }}
                     >
-                      Save Changes
+                      Save and Next
                     </Button>
                   </div>
                 )}

@@ -1,5 +1,5 @@
 import { verifySession } from "@/lib/auth-helpers";
-import { updateUserProfile, findUserById } from "@/lib/models/User";
+import { findUserById, updateUserProfile } from "@/lib/models/User";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -15,8 +15,18 @@ export async function PUT(request: NextRequest) {
     const body = await request.json();
     const userId = session.user._id;
 
+    // Filter out non-updatable fields (password, email, etc. cannot be updated through this endpoint)
+    const {
+      _id,
+      password: _password, // Password updates must be done through a separate password change endpoint
+      email, // Email cannot be changed through profile update
+      createdAt,
+      updatedAt,
+      ...profileData
+    } = body;
+
     // Update user profile
-    const updatedUser = await updateUserProfile(userId, body);
+    const updatedUser = await updateUserProfile(userId, profileData);
 
     if (!updatedUser) {
       return NextResponse.json(
@@ -26,12 +36,9 @@ export async function PUT(request: NextRequest) {
     }
 
     // Return user without password
-    const { password, ...userWithoutPassword } = updatedUser;
+    const { password: _userPassword, ...userWithoutPassword } = updatedUser;
 
-    return NextResponse.json(
-      { user: userWithoutPassword },
-      { status: 200 }
-    );
+    return NextResponse.json({ user: userWithoutPassword }, { status: 200 });
   } catch (error: unknown) {
     console.error("Update profile error:", error);
     const errorMessage =
@@ -67,4 +74,3 @@ export async function GET() {
     );
   }
 }
-

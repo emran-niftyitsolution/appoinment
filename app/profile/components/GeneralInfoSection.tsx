@@ -1,6 +1,7 @@
 "use client";
 
-import { Card, Form, Input, Select } from "antd";
+import { Card, DatePicker, Form, Input, Select } from "antd";
+import dayjs from "dayjs";
 
 const { TextArea } = Input;
 
@@ -17,7 +18,7 @@ export default function GeneralInfoSection({
     <Card
       title={
         <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
-          General Information
+          {isDoctor ? "Personal & Professional Information" : "General Information"}
         </h2>
       }
       className="shadow-md"
@@ -35,17 +36,6 @@ export default function GeneralInfoSection({
           label="Last Name"
           name="lastName"
           rules={[{ required: true, message: "Last name is required" }]}
-        >
-          <Input size="large" disabled={!isEditing} className="h-14" />
-        </Form.Item>
-
-        <Form.Item
-          label="Email"
-          name="email"
-          rules={[
-            { required: true, message: "Email is required" },
-            { type: "email", message: "Invalid email format" },
-          ]}
         >
           <Input size="large" disabled={!isEditing} className="h-14" />
         </Form.Item>
@@ -81,54 +71,111 @@ export default function GeneralInfoSection({
           />
         </Form.Item>
 
+        <Form.Item
+          label="Institute"
+          name="institute"
+          rules={[
+            {
+              required: true,
+              message: "Institute is required",
+            },
+          ]}
+        >
+          <Input
+            size="large"
+            disabled={!isEditing}
+            placeholder="e.g., Harvard Medical School"
+            className="h-14"
+          />
+        </Form.Item>
+
         {isDoctor && (
-          <Form.Item
-            label="Specialty"
-            name="specialty"
-            rules={[
-              {
-                required: isDoctor,
-                message: "Specialty is required",
-              },
-            ]}
-          >
-            <Select
-              size="large"
-              disabled={!isEditing}
-              placeholder="Select your specialty"
-              className="h-14"
-              options={[
-                { value: "cardiology", label: "Cardiology" },
-                { value: "dermatology", label: "Dermatology" },
-                { value: "orthopedics", label: "Orthopedics" },
-                { value: "pediatrics", label: "Pediatrics" },
-                { value: "neurology", label: "Neurology" },
-                { value: "oncology", label: "Oncology" },
-                { value: "psychiatry", label: "Psychiatry" },
-                { value: "surgery", label: "Surgery" },
+          <>
+            <Form.Item
+              label="Main Specialty"
+              name="specialty"
+              rules={[
                 {
-                  value: "internal-medicine",
-                  label: "Internal Medicine",
-                },
-                {
-                  value: "family-medicine",
-                  label: "Family Medicine",
+                  required: isDoctor,
+                  message: "Main specialty is required",
                 },
               ]}
-            />
-          </Form.Item>
+            >
+              <Select
+                size="large"
+                disabled={!isEditing}
+                placeholder="Select your main specialty"
+                className="h-14"
+                options={[
+                  { value: "cardiology", label: "Cardiology" },
+                  { value: "dermatology", label: "Dermatology" },
+                  { value: "orthopedics", label: "Orthopedics" },
+                  { value: "pediatrics", label: "Pediatrics" },
+                  { value: "neurology", label: "Neurology" },
+                  { value: "oncology", label: "Oncology" },
+                  { value: "psychiatry", label: "Psychiatry" },
+                  { value: "surgery", label: "Surgery" },
+                  {
+                    value: "internal-medicine",
+                    label: "Internal Medicine",
+                  },
+                  {
+                    value: "family-medicine",
+                    label: "Family Medicine",
+                  },
+                ]}
+              />
+            </Form.Item>
+
+            <Form.Item
+              label="Other Specialties"
+              name="otherSpecialties"
+              help="Select additional specialties (optional)"
+            >
+              <Select
+                mode="multiple"
+                size="large"
+                disabled={!isEditing}
+                placeholder="Select other specialties"
+                className="h-14"
+                options={[
+                  { value: "cardiology", label: "Cardiology" },
+                  { value: "dermatology", label: "Dermatology" },
+                  { value: "orthopedics", label: "Orthopedics" },
+                  { value: "pediatrics", label: "Pediatrics" },
+                  { value: "neurology", label: "Neurology" },
+                  { value: "oncology", label: "Oncology" },
+                  { value: "psychiatry", label: "Psychiatry" },
+                  { value: "surgery", label: "Surgery" },
+                  {
+                    value: "internal-medicine",
+                    label: "Internal Medicine",
+                  },
+                  {
+                    value: "family-medicine",
+                    label: "Family Medicine",
+                  },
+                ]}
+              />
+            </Form.Item>
+          </>
         )}
 
         {isDoctor && (
           <>
 
-            <Form.Item label="Years of Experience" name="experience">
-              <Input
-                type="number"
+            <Form.Item
+              label="Started Working"
+              name="startedWorking"
+              help="Select the date when you started your medical practice"
+            >
+              <DatePicker
                 size="large"
                 disabled={!isEditing}
-                placeholder="e.g., 10"
-                className="h-14"
+                placeholder="Select start date"
+                className="h-14 w-full"
+                format="YYYY-MM-DD"
+                picker="date"
               />
             </Form.Item>
 
