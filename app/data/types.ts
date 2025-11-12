@@ -12,6 +12,7 @@ export interface Specialty {
   description: string;
   certifications?: string[];
   procedures?: string[];
+  notes?: string;
 }
 
 export interface Doctor {

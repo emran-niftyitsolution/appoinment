@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Card, Form, Input, Select } from "antd";
+import { Button, Form, Input, Select } from "antd";
 
 const { TextArea } = Input;
 
@@ -12,40 +12,34 @@ export default function SpecialtiesSection({
   isEditing,
 }: SpecialtiesSectionProps) {
   return (
-    <Card
-      title={
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
-          Specialties & Expertise
-        </h2>
-      }
-      className="shadow-md"
-    >
+    <div className="bg-white rounded-xl p-6 sm:p-8 shadow-sm border border-gray-100">
+      <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">
+        Specialties & Expertise
+      </h2>
       <Form.List name="specialties">
         {(fields, { add, remove }) => (
           <>
             <div className="space-y-6">
               {fields.map(({ key, name, ...restField }) => (
-                <Card
+                <div
                   key={key}
-                  className="border-2 border-gray-200"
-                  title={
-                    <div className="flex items-center justify-between">
-                      <span className="text-base font-semibold text-gray-900">
-                        Specialty #{name + 1}
-                      </span>
-                      {isEditing && (
-                        <Button
-                          type="text"
-                          danger
-                          onClick={() => remove(name)}
-                          className="cursor-pointer"
-                        >
-                          Remove
-                        </Button>
-                      )}
-                    </div>
-                  }
+                  className="border border-gray-200 rounded-lg p-6 bg-gray-50/50"
                 >
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="text-base font-semibold text-gray-900">
+                      Specialty #{name + 1}
+                    </span>
+                    {isEditing && (
+                      <Button
+                        type="text"
+                        danger
+                        onClick={() => remove(name)}
+                        className="cursor-pointer"
+                      >
+                        Remove
+                      </Button>
+                    )}
+                  </div>
                   <div className="space-y-4 sm:space-y-6">
                     <Form.Item
                       {...restField}
@@ -112,8 +106,21 @@ export default function SpecialtiesSection({
                         className="h-14"
                       />
                     </Form.Item>
+
+                    <Form.Item
+                      {...restField}
+                      name={[name, "notes"]}
+                      label="Notes"
+                    >
+                      <TextArea
+                        rows={3}
+                        disabled={!isEditing}
+                        placeholder="Add any additional notes about this specialty..."
+                        className="resize-none"
+                      />
+                    </Form.Item>
                   </div>
-                </Card>
+                </div>
               ))}
             </div>
 
@@ -146,7 +153,7 @@ export default function SpecialtiesSection({
           </>
         )}
       </Form.List>
-    </Card>
+    </div>
   );
 }
 

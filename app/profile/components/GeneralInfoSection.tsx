@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, DatePicker, Form, Input, Select } from "antd";
+import { DatePicker, Form, Input, Select } from "antd";
 import dayjs from "dayjs";
 
 const { TextArea } = Input;
@@ -15,14 +15,10 @@ export default function GeneralInfoSection({
   isDoctor,
 }: GeneralInfoSectionProps) {
   return (
-    <Card
-      title={
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
-          {isDoctor ? "Personal & Professional Information" : "General Information"}
-        </h2>
-      }
-      className="shadow-md"
-    >
+    <div className="bg-white rounded-xl p-6 sm:p-8 shadow-sm border border-gray-100">
+      <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">
+        {isDoctor ? "Personal & Professional Information" : "General Information"}
+      </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         <Form.Item
           label="First Name"
@@ -252,7 +248,7 @@ export default function GeneralInfoSection({
           </>
         )}
       </div>
-    </Card>
+    </div>
   );
 }
 

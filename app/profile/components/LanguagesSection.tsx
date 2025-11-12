@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, Form, Select } from "antd";
+import { Form, Select } from "antd";
 
 interface LanguagesSectionProps {
   isEditing: boolean;
@@ -10,14 +10,10 @@ export default function LanguagesSection({
   isEditing,
 }: LanguagesSectionProps) {
   return (
-    <Card
-      title={
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
-          Languages
-        </h2>
-      }
-      className="shadow-md"
-    >
+    <div className="bg-white rounded-xl p-6 sm:p-8 shadow-sm border border-gray-100">
+      <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">
+        Languages
+      </h2>
       <Form.Item
         label="Languages Spoken"
         name="languages"
@@ -45,7 +41,7 @@ export default function LanguagesSection({
           ]}
         />
       </Form.Item>
-    </Card>
+    </div>
   );
 }
 

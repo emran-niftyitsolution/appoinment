@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Card, Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 
 const { TextArea } = Input;
 
@@ -12,40 +12,34 @@ export default function WorkHistorySection({
   isEditing,
 }: WorkHistorySectionProps) {
   return (
-    <Card
-      title={
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
-          Work History
-        </h2>
-      }
-      className="shadow-md"
-    >
+    <div className="bg-white rounded-xl p-6 sm:p-8 shadow-sm border border-gray-100">
+      <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">
+        Work History
+      </h2>
       <Form.List name="workHistory">
         {(fields, { add, remove }) => (
           <>
             <div className="space-y-6">
               {fields.map(({ key, name, ...restField }) => (
-                <Card
+                <div
                   key={key}
-                  className="border-2 border-gray-200"
-                  title={
-                    <div className="flex items-center justify-between">
-                      <span className="text-base font-semibold text-gray-900">
-                        Work History #{name + 1}
-                      </span>
-                      {isEditing && (
-                        <Button
-                          type="text"
-                          danger
-                          onClick={() => remove(name)}
-                          className="cursor-pointer"
-                        >
-                          Remove
-                        </Button>
-                      )}
-                    </div>
-                  }
+                  className="border border-gray-200 rounded-lg p-6 bg-gray-50/50"
                 >
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="text-base font-semibold text-gray-900">
+                      Work History #{name + 1}
+                    </span>
+                    {isEditing && (
+                      <Button
+                        type="text"
+                        danger
+                        onClick={() => remove(name)}
+                        className="cursor-pointer"
+                      >
+                        Remove
+                      </Button>
+                    )}
+                  </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <Form.Item
                       {...restField}
@@ -150,7 +144,7 @@ export default function WorkHistorySection({
                       />
                     </Form.Item>
                   </div>
-                </Card>
+                </div>
               ))}
             </div>
 
@@ -183,7 +177,7 @@ export default function WorkHistorySection({
           </>
         )}
       </Form.List>
-    </Card>
+    </div>
   );
 }
 

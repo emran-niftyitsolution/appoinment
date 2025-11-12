@@ -39,11 +39,14 @@ export interface User {
   languages?: string[];
   consultations?: Array<{
     weekDay: string;
-    timeSlots: Array<{ startTime: string; endTime: string }>;
-    hospital: string;
-    location: string;
-    consultationFee: number;
-    active?: boolean;
+    status?: "available" | "unavailable" | "limited";
+    entries: Array<{
+      hospital: string;
+      location: string;
+      consultationFee: number;
+      active?: boolean;
+      timeSlots: Array<{ startTime: string; endTime: string }>;
+    }>;
   }>;
   workingHours?: {
     day: string;

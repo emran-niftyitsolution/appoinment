@@ -122,16 +122,40 @@ function ProfilePageContent() {
       values.education = (user as any).education || [];
       values.workHistory = (user as any).workHistory || [];
       values.specialties = (user as any).specialties || [];
-      // Convert consultations time slots from string to dayjs
+      // Convert consultations entries time slots from string to dayjs
+      // Ensure all weekdays are present
       const consultations = (user as any).consultations || [];
-      values.consultations = consultations.map((consultation: any) => ({
-        ...consultation,
-        timeSlots:
-          consultation.timeSlots?.map((slot: any) => ({
-            startTime: slot.startTime ? dayjs(slot.startTime, "HH:mm") : null,
-            endTime: slot.endTime ? dayjs(slot.endTime, "HH:mm") : null,
-          })) || [],
-      }));
+      const weekDays = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ];
+      const existingWeekDays = consultations.map((c: any) => c?.weekDay);
+      const allConsultations = weekDays.map((day) => {
+        const existing = consultations.find((c: any) => c?.weekDay === day);
+        if (existing) {
+          return {
+            ...existing,
+            entries:
+              existing.entries?.map((entry: any) => ({
+                ...entry,
+                timeSlots:
+                  entry.timeSlots?.map((slot: any) => ({
+                    startTime: slot.startTime
+                      ? dayjs(slot.startTime, "HH:mm")
+                      : null,
+                    endTime: slot.endTime ? dayjs(slot.endTime, "HH:mm") : null,
+                  })) || [],
+              })) || [],
+          };
+        }
+        return { weekDay: day, entries: [] };
+      });
+      values.consultations = allConsultations;
       values.languages = (user as any).languages || [];
     }
 
@@ -202,20 +226,41 @@ function ProfilePageContent() {
         activeSection === "consultations" &&
         user.userType === "doctor"
       ) {
-        // Convert time slots from string format to dayjs objects
+        // Convert entries time slots from string format to dayjs objects
+        // Ensure all weekdays are present
         const consultations = (user as any).consultations || [];
-        sectionFields.consultations = consultations.map(
-          (consultation: any) => ({
-            ...consultation,
-            timeSlots:
-              consultation.timeSlots?.map((slot: any) => ({
-                startTime: slot.startTime
-                  ? dayjs(slot.startTime, "HH:mm")
-                  : null,
-                endTime: slot.endTime ? dayjs(slot.endTime, "HH:mm") : null,
-              })) || [],
-          })
-        );
+        const weekDays = [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday",
+        ];
+        const allConsultations = weekDays.map((day) => {
+          const existing = consultations.find((c: any) => c?.weekDay === day);
+          if (existing) {
+            return {
+              ...existing,
+              entries:
+                existing.entries?.map((entry: any) => ({
+                  ...entry,
+                  timeSlots:
+                    entry.timeSlots?.map((slot: any) => ({
+                      startTime: slot.startTime
+                        ? dayjs(slot.startTime, "HH:mm")
+                        : null,
+                      endTime: slot.endTime
+                        ? dayjs(slot.endTime, "HH:mm")
+                        : null,
+                    })) || [],
+                })) || [],
+            };
+          }
+          return { weekDay: day, entries: [] };
+        });
+        sectionFields.consultations = allConsultations;
       } else if (activeSection === "languages" && user.userType === "doctor") {
         sectionFields.languages = (user as any).languages || [];
       }
@@ -257,7 +302,7 @@ function ProfilePageContent() {
         submitValues.startedWorking = submitValues.startedWorking.toISOString();
       }
 
-      // Convert consultations time slots from dayjs to string format
+      // Convert consultations entries time slots from dayjs to string format
       if (
         submitValues.consultations &&
         Array.isArray(submitValues.consultations)
@@ -265,14 +310,18 @@ function ProfilePageContent() {
         submitValues.consultations = submitValues.consultations.map(
           (consultation: any) => ({
             ...consultation,
-            timeSlots:
-              consultation.timeSlots?.map((slot: any) => ({
-                startTime: dayjs.isDayjs(slot.startTime)
-                  ? slot.startTime.format("HH:mm")
-                  : slot.startTime,
-                endTime: dayjs.isDayjs(slot.endTime)
-                  ? slot.endTime.format("HH:mm")
-                  : slot.endTime,
+            entries:
+              consultation.entries?.map((entry: any) => ({
+                ...entry,
+                timeSlots:
+                  entry.timeSlots?.map((slot: any) => ({
+                    startTime: dayjs.isDayjs(slot.startTime)
+                      ? slot.startTime.format("HH:mm")
+                      : slot.startTime,
+                    endTime: dayjs.isDayjs(slot.endTime)
+                      ? slot.endTime.format("HH:mm")
+                      : slot.endTime,
+                  })) || [],
               })) || [],
           })
         );
